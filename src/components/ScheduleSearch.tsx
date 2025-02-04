@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../config/firebase';
+import { db } from '../config/firebase';
 import { Search, MapPin, Clock, AlertCircle, Calendar, Bell } from 'lucide-react';
 import toast from 'react-hot-toast';
 
