@@ -308,6 +308,109 @@ export default function LoadSheddingStatus() {
           </div>
         </div>
 
+        {/* Status Display */}
+        {selectedSuburb && (
+          <div className="mt-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <MapPin className="h-5 w-5 text-blue-500" />
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+                  {selectedSuburb.name}
+                </h2>
+              </div>
+              <Clock className="h-5 w-5 text-gray-400" />
+            </div>
+
+            {currentSchedule ? (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/30 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <AlertCircle className="h-5 w-5 text-red-500" />
+                    <span className="font-medium text-red-600 dark:text-red-400">
+                      Load Shedding Active
+                    </span>
+                  </div>
+                  <span className="text-sm font-medium text-red-500">
+                    Level {currentSchedule.level}
+                  </span>
+                </div>
+
+                <table className="min-w-full">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr>
+                      <td className="py-2 text-sm text-gray-500 dark:text-gray-400">Start Time</td>
+                      <td className="py-2 text-sm text-gray-900 dark:text-white font-medium">
+                        {currentSchedule.startTime}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 text-sm text-gray-500 dark:text-gray-400">End Time</td>
+                      <td className="py-2 text-sm text-gray-900 dark:text-white font-medium">
+                        {currentSchedule.endTime}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 text-sm text-gray-500 dark:text-gray-400">Time Remaining</td>
+                      <td className="py-2 text-sm text-red-600 dark:text-red-400 font-medium">
+                        {timeRemaining}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg">
+                <div className="flex items-center space-x-2">
+                  <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+                  <span className="font-medium text-green-600 dark:text-green-400">
+                    No Load Shedding Currently Active
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {selectedSuburb && (
+        <>
+          {/* Map View Toggle */}
+          <div className="mt-4 flex justify-end">
+            <button
+              onClick={() => setShowMap(!showMap)}
+              className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+            >
+              <MapPin className="h-4 w-4" />
+              <span>{showMap ? 'Hide Map' : 'Show Map'}</span>
+            </button>
+          </div>
+
+          {/* Map View */}
+          {showMap && (
+            <div className="mt-4 bg-gray-100 dark:bg-gray-700 rounded-xl h-64">
+              {/* Add your map component here */}
+              <div className="h-full flex items-center justify-center text-gray-500 dark:text-gray-400">
+                Map View Coming Soon
+              </div>
+            </div>
+          )}
+
+          {/* Notifications */}
+          <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <Bell className="h-5 w-5 text-blue-500" />
+                <span className="text-blue-600 dark:text-blue-400">Notifications</span>
+              </div>
+              <button
+                onClick={requestNotificationPermission}
+                disabled={notificationsEnabled}
+                className="px-3 py-1 text-sm bg-blue-100 dark:bg-blue-800 text-blue-600 dark:text-blue-300 rounded-full hover:bg-blue-200 dark:hover:bg-blue-700 disabled:opacity-50"
+              >
+                {notificationsEnabled ? 'Enabled' : 'Enable Notifications'}
+              </button>
+            </div>
+          </div>
 
           {/* Upcoming Schedules */}
           {upcomingSchedules.length > 0 && (
